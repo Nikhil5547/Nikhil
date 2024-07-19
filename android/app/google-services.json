@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "533698234834",
+    "project_id": "robustnotetaking",
+    "storage_bucket": "robustnotetaking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533698234834:android:2409919dcdc47afc64a00b",
+        "android_client_info": {
+          "package_name": "com.app.nikhil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhGH3PwWRJRykuo1ZrZ3WpbrIWyksREnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
