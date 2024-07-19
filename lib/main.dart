@@ -5,23 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_notification_channel/flutter_notification_channel.dart';
 import 'package:flutter_notification_channel/notification_importance.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'firebase_options.dart';
+import 'helper/shared_preference.dart';
 import 'screens/splash_screen.dart';
 
 //global object for accessing device screen size
 late Size mq;
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesService.getInstance();
 
   //enter full-screen
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
   //for setting orientation to portrait only
-  SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-      .then((value) {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((value) {
     _initializeFirebase();
     runApp(const MyApp());
   });
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         title: 'Chat',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -40,8 +41,7 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
           elevation: 1,
           iconTheme: IconThemeData(color: Colors.black),
-          titleTextStyle: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.normal, fontSize: 19),
+          titleTextStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 19),
           backgroundColor: Colors.white,
         )),
         home: const SplashScreen());
@@ -52,10 +52,7 @@ _initializeFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   var result = await FlutterNotificationChannel().registerNotificationChannel(
-      description: 'For Showing Message Notification',
-      id: 'chats',
-      importance: NotificationImportance.IMPORTANCE_HIGH,
-      name: 'Chats');
+      description: 'For Showing Message Notification', id: 'chats', importance: NotificationImportance.IMPORTANCE_HIGH, name: 'Chats');
 
   log('\nNotification Channel Result: $result');
 }
